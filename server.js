@@ -4,13 +4,19 @@ const fs = require('fs');
 const path = require('path');
 
 //establish port
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
-//assume "public" file instead of writing it in filepath
 app.use(express.static('public'));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//html routes so links work
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/index.html'))
+);
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
 
 //listen at port established earlier
 app.listen(PORT, () =>
